@@ -1,5 +1,7 @@
 # POSTURITOR
-contributor: @tangyiqwan, @livelycloud, @xinhui
+contributor: @tangyiqwan, @livelycloud, @xinhui, @maffinnn
+
+## Demo Link: https://www.youtube.com/watch?v=zaJA1EtpMoI&t=101s
 
 ## Inspiration
 In recent years, more people start to work and study online using computers and tablets. This is not only the safest option during COVID-19 pandemic, but often the more viable and flexible arrangement for people working and studying abroad. However, during long hours of computer usage, unhealthy sitting posture leads to all kinds of discomfort, even the development of diseases. Thus we feel that a solution to unhealthy postures would be relevant in the age of technology and pandemic.
