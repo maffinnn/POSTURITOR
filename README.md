@@ -1,4 +1,5 @@
 # POSTURITOR
+contributor: @yiqwan, @livelycloud, @xinhui
 
 ## Inspiration
 In recent years, more people start to work and study online using computers and tablets. This is not only the safest option during COVID-19 pandemic, but often the more viable and flexible arrangement for people working and studying abroad. However, during long hours of computer usage, unhealthy sitting posture leads to all kinds of discomfort, even the development of diseases. Thus we feel that a solution to unhealthy postures would be relevant in the age of technology and pandemic.
@@ -33,3 +34,5 @@ From the idea pitching workshop, we have to understand the perspectives of inves
 We would like to develop applications for different devices such as phones and tablets.
 We would like to add more customized features.
 We would like to build and train our own model to extract upper body landmarks more effectively when users are wearing masks.
+
+
