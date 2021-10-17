@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Posture Reader</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, inital-scale=1.0,maximum-scale=1.0, user-scalable=no">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Palette+Mosaic&display=swap" rel="stylesheet">
+</head>
+
+<style type="text/css">
+	p {
+	  text-align: center;
+	  font-family: 'Palette Mosaic', cursive;
+	  color: black;
+	  margin: 80px 0;
+	  font-size: 70px;
+	}
+
+	button{
+		width:  120px;
+		padding:  10px;
+		display: block;
+		margin:  20px auto;
+		border:  2px solid #111111;
+		cursor:  pointer;
+		background-color: white;
+	}
+
+	#start-camera{
+		margin-top: 50px;
+	}
+	#video{
+		display: none;
+		margin:  50px auto 0 auto;
+	}
+	#click-photo{
+		display:  none;
+	}
+	#canvas {
+		display:  block;
+		margin: 0 auto 20px auto;
+	}
+	#dataurl-header {
+		text-align:  center;
+		font-size:  15px;
+	}
+	#dataurl {
+		display:  block;
+		height: 100px;
+		width: 320px;
+		margin:  10px auto;
+		resize:  none;
+		outline: none;
+		border:  1px solid #111111;
+		padding: 5px;
+		font-size:  13px;
+		box-sizing:  border-box;
+	}
+	.contentcenter {
+		margin:  0 auto;
+		padding:  0;
+		width: 1000px;
+		overflow: hidder;
+	}
+	.contentleft {float: left;}
+	.contentright {float: right;}
+	.contentright{
+		margin-top: 45px;
+	}
+
+</style>
+<!-- <script type="text/javascript" charset="utf-8">
+    function addmsg(type, msg){
+        /* Simple helper to add a div.
+        type is the name of a CSS class (old/new/error).
+        msg is the contents of the div */
+        $("#messages").append(
+            "<div class='msg "+ type +"'>"+ msg +"</div>"
+        );
+    }
+
+    function waitForMsg(){
+        /* This requests the url "msgsrv.php"
+        When it complete (or errors)*/
+        $.ajax({
+            type: "GET",
+            url: "script1.py",
+
+            async: true, /* If set to non-async, browser shows page as "Loading.."*/
+            cache: false,
+            timeout:50000, /* Timeout in ms */
+
+            success: function(data){ /* called when request to barge.php completes */
+                addmsg("new", data); /* Add response to a .msg div (with the "new" class)*/
+                setTimeout(
+                    waitForMsg, /* Request next message */
+                    1000 /* ..after 1 seconds */
+                );
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown){
+                addmsg("error", textStatus + " (" + errorThrown + ")");
+                setTimeout(
+                    waitForMsg, /* Try again after.. */
+                    15000); /* milliseconds (15seconds) */
+            }
+        });
+    };
+
+    $(document).ready(function(){
+        waitForMsg(); /* Start the inital request */
+    });
+</script> -->
+<body>
+	<p>P O S T U R I T O R</p>
+	<div class = "contentcenter">
+		<div class="contentleft">
+			<button id="start-camera">Start Camera</button>
+			<video id="video" width="320" height="240" autoplay></video>
+		</div>
+		
+		<div class="contentright">
+			<div id='title2'>photo taken</div>
+			<canvas id="canvas" width="320" height="240"></canvas>
+		</div>
+	</div>
+
+</body>
+
+<script>
+	let camera_button = document.querySelector("#start-camera");
+	let video = document.querySelector("#video");
+	let canvas = document.querySelector("#canvas");
+	let dataurl = document.querySelector("#dataurl");
+	let dataurl_container = document.querySelector("#dataurl_container");
+	window.counter = 0;
+	window.ref = true;
+	let contentleft = document.querySelector("#contentleft");
+	let contentright =  document.querySelector("#contentright");
+	camera_button.addEventListener('click', async function() {
+		let stream = null;
+
+		try {
+			stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+		}
+		catch(error){
+			alert(error.message);
+			return;
+		}
+
+		console.log("start camera")
+		video.srcObject = stream;
+		video.style.display = 'block';
+		camera_button.style.display = 'none';
+
+		
+	});
+	
+
+	setInterval(snapshot, 6000);
+
+	function snapshot(){
+		canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+   		let image_data = canvas.toDataURL('image/jpeg');
+   		sendMessage(image_data);
+   		if (window.ref) { TakeRef(); window.ref = false;}
+   		else if (window.counter%3 === 0){ ChestUp(); window.counter++; }
+   		else if (window.counter%3 === 1){ BalanceShld(); window.counter++;}
+   		else if (window.counter%3 === 2){ Correct(); window.counter++; }
+
+	};
+
+	function ChestUp(){
+		 setTimeout(function(){ alert("Please keep your chest up");}, 3000);
+	}
+	function BalanceShld(){
+		setTimeout(function(){ alert("Please balance your shoulder");}, 3000);
+	}
+	function Correct(){
+		setTimeout(function() { alert("Your is correct!!Keep it up!!");}, 3000);
+	}
+	//Sending image data to server
+	function sendMessage(image){
+	   var msg = JSON.stringify(image);
+	   var xhr = new XMLHttpRequest();
+	   xhr.open('POST', true);
+	   xhr.send(msg);
+	   console.log('send xhr message to backend');
+	}
+
+	function TakeRef(){
+   		setTimeout(function(){ alert("Reference Picture Is Taken:)!!!");}, 2000);
+	}
+
+</script>
