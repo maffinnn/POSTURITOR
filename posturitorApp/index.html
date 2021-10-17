@@ -121,7 +121,6 @@
 		</div>
 		
 		<div class="contentright">
-			<div id='title2'>photo taken</div>
 			<canvas id="canvas" width="320" height="240"></canvas>
 		</div>
 	</div>
@@ -158,17 +157,17 @@
 	});
 	
 
-	setInterval(snapshot, 6000);
+	setInterval(snapshot, 12000);
 
 	function snapshot(){
 		canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
    		let image_data = canvas.toDataURL('image/jpeg');
    		sendMessage(image_data);
    		if (window.ref) { TakeRef(); window.ref = false;}
-   		else if (window.counter%3 === 0){ ChestUp(); window.counter++; }
-   		else if (window.counter%3 === 1){ BalanceShld(); window.counter++;}
-   		else if (window.counter%3 === 2){ Correct(); window.counter++; }
-
+   		else if (window.counter%4 === 0){ ChestUp(); window.counter++; }
+   		else if (window.counter%4 === 1){ SitStraight(); window.counter++;}
+		else if (window.counter%4 === 2){ BalanceShld(); window.counter++; }
+   		else if (window.counter%4 === 3){ Correct(); window.counter++; }
 	};
 
 	function ChestUp(){
@@ -177,8 +176,11 @@
 	function BalanceShld(){
 		setTimeout(function(){ alert("Please balance your shoulder");}, 3000);
 	}
+	function SitStraight() {
+		setTimeout(function(){ alert("Please sit straight");}, 3000);
+	}
 	function Correct(){
-		setTimeout(function() { alert("Your is correct!!Keep it up!!");}, 3000);
+		setTimeout(function() { alert("Your are correct!!Keep it up!!");}, 3000);
 	}
 	//Sending image data to server
 	function sendMessage(image){

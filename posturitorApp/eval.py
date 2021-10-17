@@ -2,9 +2,9 @@ import pickle
 import numpy as np
 from preprocess import extractFeature 
 
-ref_path = 'yujing_MBA_1/ref.jpg'
+ref_path = 'images/reference.jpg'
 
-cand_path = 'yujing_MBA_1/A/3.jpeg'
+cand_path = 'images/posture.jpg'
 
 def predict(cand_path, ref_path):
     res = []

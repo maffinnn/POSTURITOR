@@ -30,7 +30,7 @@ fs.readFile('./index.html', function (err, html) {
                   post = JSON.parse(body);
                   var data = post.replace(/^data:image\/\w+;base64,/, "");
                   var buf = Buffer.from(data, 'base64');
-                  ref = writeFileToSystem(buf,ref);
+                  ref = writeFileToSystem(buf, ref);
               });
 
               const python = spawn('python', ['eval.py']);
@@ -38,7 +38,7 @@ fs.readFile('./index.html', function (err, html) {
                 console.log('Pipe data from pyhton script ...');
                 let dataToSend = data.toString();
                 console.log(dataToSend);
-                //res.write(dataToSend);
+                // res.write(dataToSend);
               })
           
          }
@@ -50,9 +50,9 @@ fs.readFile('./index.html', function (err, html) {
 });
 
 function writeFileToSystem(buf, ref){
-     let path = "";
-     if (ref) path += "./images/posture.jpg";
-     else path += "./images/reference.jpg";
+    let path = "";
+    if (ref) { path += "./images/reference.jpg"; }
+    else path += "./images/posture.jpg";
      fs.writeFile(path, buf, function(err) {
          console.log("The file was saved!");
      });
